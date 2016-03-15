@@ -2,7 +2,7 @@
 The webserver, sinatra on thin server, on starting up reads 
 the entire file and detects the starting line offset bytes. 
 The line offset bytes are written to a file as unsigned long longs, 
-and the total line count is memorized. Every request to /lines/<line index>
+and the total line count is memorized. Every request to /lines/:line_index
 validates that line index is less than the line count. After that 2
 unsigned long longs, start and end, are read from the line offset bytes file,
 16 bytes. Then end - start - 1 bytes are read from the file and served
