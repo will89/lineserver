@@ -2,11 +2,11 @@
 The webserver, sinatra on thin server, on starting up reads 
 the entire file and detects the starting line offset bytes. 
 The line offset bytes are written to a file as unsigned long longs, 
-and the total line count is memorized. Every request to /lines/:line_index
+and the total line count is memorized. Every request to `/lines/:line_index`
 validates that line index is less than the line count. After that 2
 unsigned long longs, start and end, are read from the line offset bytes file,
-16 bytes. Then end - start - 1 bytes are read from the file and served
-to the client, this strips the newline character from the line.
+at offset (:line_index * 8). Then end - start - 1 bytes are read from the file
+at offset start and served to the client, this strips the newline character from the line.
 
 # How will your system perform with a 1 GB file? a 10 GB file? a 100 GB file?
 The system should be able to scale with the size of most files quite easily,
@@ -29,8 +29,8 @@ I used google, stackoverflow, and a couple of random blog posts via googling for
 I used the following gems config, thin, and sinatra. I used config for managing arguments in the app. I used thin for the basic webserver. I used sinatra for managing http routes in the app. I chose config and thin from past experience in ruby apps. This was the first time I used sinatra, but I had seen it a lot in searching for examples of building apps on top of thin.
 
 # How long did you spend on this exercise? If you had unlimited more time to spend on this, how would you spend it and how would you prioritize each item?
-I spent 3 to 4 hours on this exercise, and the below is a prioritized lists
-of improvements.
+I spent 3 to 4 hours on this exercise, and the below is a prioritized lists of improvements.
+
 1. Improving the line offset mapping algorithm.
    * It would be better if it was sensitive to the size of the file
    * The line offset mapping could be held entirely in memory if it were small enough
