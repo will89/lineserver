@@ -4,9 +4,9 @@ the entire file and detects the starting line offset bytes.
 The line offset bytes are written to a file as unsigned long longs, 
 and the total line count is memorized. Every request to /lines/<line index>
 validates that line index is less than the line count. After that 2
-unsigned long longs, start and end, are read from the line offset bytes,
+unsigned long longs, start and end, are read from the line offset bytes file,
 16 bytes. Then end - start - 1 bytes are read from the file and served
-to the client, this strips the newline character for the line.
+to the client, this strips the newline character from the line.
 
 # How will your system perform with a 1 GB file? a 10 GB file? a 100 GB file?
 The system should be able to scale with the size of most files quite easily,
